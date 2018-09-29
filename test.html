@@ -13,9 +13,26 @@
 
 <body>
 
+    <div class="col-md-6">
+        <div class="results">
+            <h3 id="results" align="center">Results</h3><br><br>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="results">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
-    let haveCityID = false;
+    /*let haveCityID = false;
     $.ajax({
         url: "https://api.internationalshowtimes.com/v4/cities",
         type: "GET",
@@ -54,8 +71,16 @@
             console.log("HTTP Request Failed");
         })
         .always(function () {
-            /* ... */
-        });
+            
+        });*/
+
+    $.ajax({
+        url: "https://api.themoviedb.org/3/search/multi?api_key=c473eb512205a37f77691399c75dee0b&language=en-US&query=starship%20troopers&page=1&include_adult=false",
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+
+    })
 </script>
 
 </html>
