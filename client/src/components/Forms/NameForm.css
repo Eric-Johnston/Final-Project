@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+  }
+
+form {
+    height: 300px;
+    width: 300px;
+    background-color: lightsteelblue;
+    margin-top: 0px;
+    margin-left: 600px;
+    border-style: groove;
+    border-width: 8px;
+    margin-bottom: 20px;
+    position: relative;
+    
+}
+
+
+label {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+option {
+    width: 100px;
+
+}
