@@ -1,30 +1,36 @@
 module.exports = function (sequelize, DataTypes) {
-  var Profile = sequelize.define("User", {
+  var Profile = sequelize.define("Profile", {
+    
     user_id: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
+    
     media_id: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
+    
     media_name: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false
     },
-    // movie_tv: {
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: false
-    // },
-    // favorite: {
-    //   type: DataType.BOOLEAN,
-    //   allowNull: true
-    // },
-    // user_rating: {
-    //   type: DataType.INTEGER,
-    //   allowNull: true
-    // },
+    
+    movie_tv: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    
+    favorited: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    
+    user_rating: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
   });
-
+  //Profile.hasOne(Users);
   return Profile;
 };
