@@ -166,16 +166,18 @@
     </footer>
 
 
+
+    </body>
     <!--Jquery-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
     <!--Bootstrap js-->
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    </body>
     <script>
         $(document).ready(function () {
+
+
             /*let haveCityID = false;
             $.ajax({
                 url: "https://api.internationalshowtimes.com/v4/cities",
@@ -220,11 +222,15 @@
             function clearDiv(element) {
                 document.getElementById().innerHTML("");
             }
-            $("#searchBtn").on("click", clearDiv("results"), function () {
+
+            $("#searchBtn").on("click", function () {
                 event.preventDefault();
-                let newTable = [];
+
+                let tableArray = [];
                 let userInput = $("#searchBar").val();
-                let URL = `https://api.themoviedb.org/3/search/multi?api_key=c473eb512205a37f77691399c75dee0b&language=en-US&query=${userInput}&page=1&include_adult=false`
+                const key = "api_key=c473eb512205a37f77691399c75dee0b";
+                let URL = `https://api.themoviedb.org/3/search/multi?${key}&language=en-US&query=${userInput}&page=1&include_adult=false`;
+
                 $.ajax({
                     url: URL,
                     method: "GET"
@@ -232,8 +238,10 @@
                     console.log(response);
                     let results = response.results;
                     for (i = 0; i < results.length; i++) {
-                        let deleteTable = $("results").html("")
-                        let movieTable = [`<tr><td> <p id=title${i}> <b>Title: ${results[i].title}`]    ;
+                        let deleteTable = $("results").html("");
+                        let tableText = `<p id=title${i}> <b>Title: </b>${results[i].title}</p><br>`;
+                        let tableImg = `<img src='https://image.tmdb.org/t/p/original${results[i].poster_path}' height='300' width='200'>`;
+                        let movieTable = `<tr style='outline: thin solid black;'><td><img src='https://image.tmdb.org/t/p/original${results[i].poster_path}' height='300' width='200'></td><br></tr><br>`;
                         let newTable = $("#results").append(movieTable);
                     }
                 })
