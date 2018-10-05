@@ -1,74 +1,37 @@
-const express = require('express');
-const app = express();
-const passport = require('passport');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const env = require('dotenv').load();
-const exphbs = require('express-handlebars');
+// Requiring necessary npm packages
+var express = require("express");
+var bodyParser = require("body-parser");
+var session = require("express-session");
+// Requiring passport as we've configured it
+var passport = require("./config/passport");
+//var routes = require("./routes");
 
-const PORT = process.env.PORT || 5000;
+// Setting up port and requiring models for syncing
+var PORT = process.env.PORT || 3001;
+var db = require("./models");
 
-
-
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-};
-
-//For BodyParser
+// Creating express app and configuring middleware needed for authentication
+var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
-// For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
+// We need to use sessions to keep track of our user's login status
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
+//app.use(routes);
 
+// Requiring our routes
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
-//For Handlebars
-app.set('views', './app/views');
-app.engine('hbs', exphbs({ extname: '.hbs' }));
-app.set('view engine', '.hbs');
-
-
-app.get('/', function (req, res) {
-    res.send('Welcome to Passport with Sequelize');
-});
-
-
-//Models
-var models = require("./app/models");
-
-
-//Routes
-var authRoute = require('./app/routes/auth.js')(app, passport);
-
-
-//load passport strategies
-require('./app/config/passport/passport.js')(passport, models.user);
-
-
-//Sync Database
-models.sequelize.sync().then(function () {
-    console.log('Nice! Database looks fine')
-
-}).catch(function (err) {
-    console.log(err, "Something went wrong with the Database Update!");
-});
-
-
-
-app.listen(PORT, function (err) {
-    if (!err)
-        console.log(`Site is live on port ${PORT}`); else console.log(err);
-
-});
-
-app.listen(PORT, function(err) {
-    if (!err)
-        console.log(`Site is live on posrt ${PORT}`);
-    else{
-        console.log(err);
-    };
+// Syncing our database and logging a message to the user upon success
+db.sequelize.sync().then(function() {
+  app.listen(PORT, function() {
+    console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
+  });
 });
