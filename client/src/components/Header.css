@@ -1,5 +1,14 @@
 header {
-    background: #444;
+    background: purple;
     color: #fff;
-    padding: 8px 5%;
+    padding: 2px 2%;
+    height: 10px;
+    text-align: center;
   }
+  span {
+    margin-left: 200px;
+  }
+ nav_link {
+   color: black;
+   margin-left: 200px;
+ } 

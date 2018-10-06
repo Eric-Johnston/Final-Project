@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-// import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import './App.css';
 import image from './reel.png';
-// import Forms from './Components/Forms/Forms';
 import Footer from './components/Footer/Footer';
 import NameForm from './components/Forms/NameForm';
-// import Navbar from './Components/Navbar/Navbar';
-// import Dashboard from './Components/Dashboard';
 import Search from './components/Search/search';
-// import Landing from './Components/Landing';
-// import Dashboard from './Components/Dashboard';
-// import Header from './Components/Header';
+import Header from './components/Header';
+import Jumbotron from './components/Jumbotron';
+import Register from "./pages/Register";
+import Wrapper from "./components/Wrapper/wrapper";
+
 // import axios from 'axios';
 
           
@@ -56,25 +55,31 @@ clear = () => {
     return (
      
       <div className="App">
-      
+      <Header />
+<Wrapper>
+<Route exact path="/Register" component={Register} />
+
+
+  </Wrapper>
         <header className="App-header">
-        
         
           <img src={image} className="App-logo" alt="logo" />
           </header>
           <div className="intro">
+        
           <h1>{this.state.title}</h1>
-          <h3>{this.state.userpath}</h3>
-          
+   
+          <Jumbotron />
         </div>
         <button onClick={this.LogIn}>Log In</button>
 
         <button onClick={this.signUp}>Sign Up</button>
         
-      
+        
         
      {(this.state.userpath === "signup")&&
-        <Search />
+         <Search />
+        
      }
 
           
@@ -91,5 +96,9 @@ clear = () => {
 
   }
 }
+
+
+
+
   
 export default App;
