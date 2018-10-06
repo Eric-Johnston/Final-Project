@@ -220,13 +220,13 @@
                     
                 });*/
             function clearDiv(element) {
-                document.getElementById().innerHTML("");
+                $("#results").html("");
             }
 
             $("#searchBtn").on("click", function () {
                 event.preventDefault();
+                clearDiv();
 
-                let tableArray = [];
                 let userInput = $("#searchBar").val();
                 const key = "api_key=c473eb512205a37f77691399c75dee0b";
                 let URL = `https://api.themoviedb.org/3/search/multi?${key}&language=en-US&query=${userInput}&page=1&include_adult=false`;
@@ -241,8 +241,31 @@
                         let deleteTable = $("results").html("");
                         let tableText = `<p id=title${i}> <b>Title: </b>${results[i].title}</p><br>`;
                         let tableImg = `<img src='https://image.tmdb.org/t/p/original${results[i].poster_path}' height='300' width='200'>`;
-                        let movieTable = `<tr style='outline: thin solid black;'><td><img src='https://image.tmdb.org/t/p/original${results[i].poster_path}' height='300' width='200'></td><br></tr><br>`;
+                        let wishlistBtn = `<br><button type='button' class='btn btn-success btn-sm' id='wishlistBtn${[i]}' style='float: left;'>Add to Wishlist</button>`;
+                        let watchedBtn = `<button type='button' class='btn btn-success btn-sm' id='watchedBtn${[i]}' style='float: right;'>Add to Watched</button>`;
+                        let movieTable = `<tr style='outline: thin solid black;'><td>${tableText}${tableImg}${wishlistBtn}${watchedBtn}</tr></td>`;
                         let newTable = $("#results").append(movieTable);
+
+                        //Add movie to wishlist
+                        $("#wishlistBtn" + [i]).on("click", function () {
+                            console.log(this)
+                            $("#wishlist-table").append(movieTable+ "<br><button type='button' class='btn btn-danger btn-sm'" + "id='wishlistrmvBtn" + [i] + "'" + "style='float: left'>Remove from Wishlist</button><br><hr>")
+                            console.log(movieTable)
+                            $("#wishlistrmvBtn" + [i]).on("click", function () {
+                                console.log(this)
+                                $("#wishlist-table").hide(movieTable + "<br><button type='button' class='btn btn-success btn-sm'" + "id='wishlistrmvBtn" + [i] + "'" + "style='float: left'>Remove from Wishlist</button><br><hr>");
+                            })
+                        });
+                        //Add movie to reviewed list
+                        $("#reviewedBtn" + [i]).on("click", function () {
+                            console.log(this)
+                            $("#reviews-table").append(movieTable + "<br><button type='button' class='btn btn-danger btn-sm'" + "id='reviewedrmvBtn" + [i] + "'" + "style='float: left'>Remove from Reviews</button><br><hr>")
+                            console.log(this.movieTable)
+                            $("#reviewedrmvBtn" + [i]).on("click", function () {
+                                console.log(this)
+                                $("#reviews-table").hide(movieTable + "<br><button type='button' class='btn btn-success btn-sm'" + "id='reviewedrmvBtn" + [i] + "'" + "style='float: left'>Remove from Wishlist</button>");
+                            })
+                        });
                     }
                 })
             })
