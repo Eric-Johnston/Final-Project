@@ -25,6 +25,16 @@ export default class Login extends Component {
     });
 };
 
+isAuthenticated(auth){
+  if (auth.status === 200){
+      console.log(auth.config.data);
+      this.setState({
+          authenticated: true
+      });
+      return auth.redirect("/home");
+  }
+}
+
   handleFormSubmit = event => {
     event.preventDefault();
     console.log(this.state.email);

@@ -2,27 +2,28 @@ import React, { Component } from 'react'
 import API from '../../utils/API.js'
 // import { auth } from '../../helpers/auth'
 
-function setErrorMsg(error) {
-  return {
-    registerError: error.message
-  }
-}
 
 export default class Register extends Component {
   state = { loginMessage: null }
   handleSubmit = (e) => {
     e.preventDefault()
-    // login(this.email.value, this.pw.value)
-    //   .catch((error) => {
-    //       this.setState(setErrorMsg('Invalid username/password.'))
-    //     })
+    
   }
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
         [name]: value
     });
-};
+  };
+
+  isAuthenticated(auth){
+    if (auth.status === 200){
+        console.log(auth.config.data);
+        this.setState({
+            authenticated: true
+        });
+    }
+  }
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -67,7 +68,7 @@ export default class Register extends Component {
 
               <div className="form-group">
                 <select onChange={this.handleInputChange} name="favorite_genre" className="form-control" ref={(favorite_genre) => this.favorite_genre = favorite_genre} placeholder="Favorite Genre">
-                  <option selected disabled>Favorite Genre</option>
+                  <option defaultValue disabled>Favorite Genre</option>
                   <option>Action</option>
                   <option>Adventure</option>
                   <option>Animation</option>

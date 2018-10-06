@@ -26,6 +26,16 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     },
     
+    wish_list: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+
+    watched_list: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    
     user_rating: {
       type: DataTypes.INTEGER,
       allowNull: true

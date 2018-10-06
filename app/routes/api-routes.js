@@ -51,7 +51,10 @@ module.exports = function (app) {
       media_id: req.body.media_id,
       media_name: req.body.media_name,
       favorited: req.body.favorite,
+      wish_list: request.body.wish_list,
+      watched_list: request.boy.watch_list,
       user_rating: request.body.user_rating
+
 
     }).catch(function (err) {
       console.log(err);
